@@ -1,4 +1,4 @@
-package com.example.topquiz;
+package controller;
 
 
 import android.content.Intent;
@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.CharArrayWriter;
+import com.example.topquiz.R;
 
 public class MainActivity extends AppCompatActivity {
     TextView mGreetingTextView;
@@ -23,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mGreetingTextView=findViewById(R.id.activity_main_greeting_txt);
-        mNameInput=findViewById(R.id.activity_main_name_input);
-        mPlayButton=findViewById(R.id.activity_main_play_btn);
+        mGreetingTextView = findViewById(R.id.activity_main_greeting_txt);
+        mNameInput = findViewById(R.id.activity_main_name_input);
+        mPlayButton = findViewById(R.id.activity_main_play_btn);
         mPlayButton.setEnabled(false);
         mNameInput.addTextChangedListener(new TextWatcher() {
             @Override
@@ -47,13 +47,17 @@ public class MainActivity extends AppCompatActivity {
         mPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               Intent gameActivityIntent = new Intent(MainActivity.this,GameActivity.class);
-               startActivity(gameActivityIntent);
+                Intent gameActivityIntent = new Intent(MainActivity.this, GameActivity.class);
+                startActivity(gameActivityIntent);
 
 
             }
         });
 
 
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
