@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         mPreferences = getPreferences(MODE_PRIVATE);
 
-        mPreferences = getPreferences(MODE_PRIVATE);
+
         mGreetingText =  findViewById(R.id.activity_main_greeting_txt);
         mGreetingTextView = findViewById(R.id.activity_main_greeting_txt);
         mNameInput = findViewById(R.id.activity_main_name_input);
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
                 mPreferences.edit().putString(PREF_KEY_FIRSTNAME, mUser.getFirstName()).apply();
                 Intent gameActivityIntent = new Intent(MainActivity.this, GameActivity.class);
-                startActivity(gameActivityIntent);
+                startActivityForResult(gameActivityIntent, GAME_ACTIVITY_REQUEST_CODE);
 
 
             }
@@ -86,13 +87,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d("input", requestCode+" "+resultCode);
         if (GAME_ACTIVITY_REQUEST_CODE == requestCode && RESULT_OK == resultCode) {
             // Fetch the score from the Intent
             int score = data.getIntExtra(GameActivity.BUNDLE_EXTRA_SCORE, 0);
             mPreferences.edit().putInt(PREF_KEY_SCORE, score).apply();
+            Log.d("score after pref", String.valueOf(score));
+            Log.d("score after pref", "condition succeeded");
+
             greetUser();
         }
         }
@@ -101,14 +107,49 @@ public class MainActivity extends AppCompatActivity {
     private void greetUser() {
         String firstName = mPreferences.getString(PREF_KEY_FIRSTNAME, null);
         if (null != firstName) {
-            int score = mPreferences.getInt(PREF_KEY_SCORE, 0);
+            int mScore = mPreferences.getInt(PREF_KEY_SCORE, 0);
             String fulltext = "Welcome back,"
-                    + firstName + "!\nYour last score was" + score
+                    + firstName + "!\nYour last score was" + mScore
                     + ", will you do better this time?";
             mGreetingText.setText(fulltext);
             mNameInput.setText(firstName);
             mNameInput.setSelection(firstName.length());
             mPlayButton.setEnabled(true);
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        System.out.println("MainActivity::onStart()");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        System.out.println("MainActivity::onResume()");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        System.out.println("MainActivity::onPause()");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        System.out.println("MainActivity::onStop()");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        System.out.println("MainActivity::onDestroy()");
     }
 }
