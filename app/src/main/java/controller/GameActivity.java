@@ -38,6 +38,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     public static final String BUNDLE_EXTRA_SCORE = "BUNDLE_EXTRA_SCORE";
     private int mNumberOfQuestions;
+
     private boolean mEnableTouchEvents;
 
 
@@ -52,6 +53,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if (savedInstanceState != null) {
             mScore = savedInstanceState.getInt(BUNDLE_STATE_SCORE);
             mNumberOfQuestions = savedInstanceState.getInt(BUNDLE_STATE_QUESTION);
+
         } else {
             mScore = 0;
             mNumberOfQuestions = 4;
@@ -59,11 +61,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         mEnableTouchEvents = true;
         //Wire widgets
-        mGameQuestionTextView = (TextView)  findViewById(R.id.activity_game_question_text);
-        mGameButton1 = (Button) findViewById(R.id.activity_game_answer1_btn);
-        mGameButton2 = (Button) findViewById(R.id.activity_game_answer2_btn);
-        mGameButton3 = (Button) findViewById(R.id.activity_game_answer3_btn);
-        mGameButton4 = (Button) findViewById(R.id.activity_game_answer4_btn);
+        mGameQuestionTextView =  findViewById(R.id.activity_game_question_text);
+        mGameButton1 =  findViewById(R.id.activity_game_answer1_btn);
+        mGameButton2 =  findViewById(R.id.activity_game_answer2_btn);
+        mGameButton3 =  findViewById(R.id.activity_game_answer3_btn);
+        mGameButton4 =  findViewById(R.id.activity_game_answer4_btn);
 //use the tag property to 'name' the buttons
         mGameButton1.setTag(0);
         mGameButton2.setTag(1);
